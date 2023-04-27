@@ -1,0 +1,30 @@
+version: '3.9'
+
+services:
+  data:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: ms_sql
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: Y
+      MSSQL_SA_PASSWORD: sebaspipfer123*A
+      MSSQL_PID: Express
+      MSSQL_INIT_FILE: /var/opt/mssql/persona_ddl_ms.sql
+    volumes:
+      - data:/var/opt/mssql
+      - ./persona_ddl_ms.sql:/var/opt/mssql/persona_ddl_ms.sql
+    networks:
+      - lab-net-1
+  personapi-dotnet:
+    build: ./personapi-dotnet
+    container_name: personapi-dotnet
+    image: personapidotnet
+    depends_on:
+      - data
+    networks:
+      - lab-net-1
+networks:
+  lab-net-1:
+    name: lab-net-1
+    driver: bridge
