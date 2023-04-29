@@ -5,18 +5,26 @@ services:
     build: ./db-config
     container_name: ms_sql
     image: ms_sql
+    restart: always
+    healthcheck:
+        test: ["CMD-SHELL", "echo 'SELECT 1;' | /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'sebaspipfer123*A' -d persona_db || exit 1"]
+        interval: 10s
+        retries: 10
+        start_period: 10s
+        timeout: 3s
     ports:
       - "1433:1433"
     networks:
       - lab-net-1
   personapi-dotnet:
-    build: ./personapi-dotnet
+    build: .
     container_name: personapi-dotnet
     image: personapidotnet
     ports:
       - "32770:80"
     depends_on:
-      - data
+      data:
+        condition: service_healthy
     networks:
       - lab-net-1
 networks:

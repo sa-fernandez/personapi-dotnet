@@ -4,6 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
+USER root
 RUN chmod +x entrypoint.sh
 RUN chmod +x run-initialization.sh
 
@@ -13,4 +14,4 @@ ENV MSSQL_PID Express
 
 EXPOSE 1433
 
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["./entrypoint.sh"]
