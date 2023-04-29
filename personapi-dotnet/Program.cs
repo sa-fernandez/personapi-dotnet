@@ -18,6 +18,9 @@ builder.Services.AddDbContext<PersonaDbContext>(options =>
 });
 
 builder.Services.AddTransient<IPersonaRepository, PersonaRepository>();
+builder.Services.AddTransient<IProfesionRepository, ProfesionRepository>();
+builder.Services.AddTransient<ITelefonoRepository, TelefonoRepository>();
+builder.Services.AddTransient<IEstudioRepository, EstudioRepository>();
 
 var app = builder.Build();
 
@@ -39,9 +42,5 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllers();
-
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

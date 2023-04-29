@@ -5,9 +5,9 @@ namespace personapi_dotnet.Models.Repository
     public interface ITelefonoRepository
     {
         Task<Telefono> CreateTelefonoAsync(Telefono telefono);
-        Telefono GetTelefonoAsync(int id);
+        Task<Telefono> GetTelefonoAsync(string id);
         IEnumerable<Telefono> GetTelefonos();
         Task<bool> UpdateTelefonoAsync(Telefono telefono);
-        Task<bool> DeleteTelefonoAsync(int id);
+        Task<bool> DeleteTelefonoAsync(string id);
     }
 }

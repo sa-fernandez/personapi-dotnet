@@ -14,22 +14,9 @@ namespace personapi_dotnet.Models.Repository
             return persona;
         }
 
-        public async Task<bool> DeletePersonaAsync(int id)
-        {
-            var persona = _context.Personas.Find(id);
-            if(persona is null)
-            {
-                return false;
-            }
-            _context.Remove(persona);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-
         public async Task<Persona> GetPersonaAsync(int id)
         {
-            var persona = await _context.Personas.FindAsync(id);
-            return persona;
+            return await _context.Personas.FindAsync(id);
         }
 
         public IEnumerable<Persona> GetPersonas()
@@ -40,6 +27,18 @@ namespace personapi_dotnet.Models.Repository
         public async Task<bool> UpdatePersonaAsync(Persona persona)
         {
             _context.Personas.Entry(persona).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeletePersonaAsync(int id)
+        {
+            var persona = _context.Personas.Find(id);
+            if (persona is null)
+            {
+                return false;
+            }
+            _context.Remove(persona);
             await _context.SaveChangesAsync();
             return true;
         }

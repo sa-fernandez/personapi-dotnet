@@ -6,7 +6,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["personapi-dotnet.csproj", "personapi-dotnet/"]
+COPY ["personapi-dotnet/personapi-dotnet.csproj", "personapi-dotnet/"]
 RUN dotnet restore "personapi-dotnet/personapi-dotnet.csproj"
 COPY . .
 WORKDIR "/src/personapi-dotnet"
